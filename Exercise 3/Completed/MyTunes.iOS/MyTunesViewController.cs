@@ -17,10 +17,10 @@ namespace MyTunes
 		{
 			base.ViewDidLoad();
 
-			// Load the data
-            //SongLoader.Loader = new StreamLoader();
-            //var data = await SongLoader.Load();
-		    var data = await SongLoader.ImprovedLoad();
+            // Load the data
+            SongLoader.Loader = new StreamLoader();
+            var data = await SongLoader.Load();
+            //var data = await SongLoader.ImprovedLoad();
 
 			// Register the TableView's data source
 			TableView.Source = new ViewControllerSource<Song>(TableView) {
