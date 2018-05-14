@@ -16,10 +16,10 @@ namespace MyTunes
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //SongLoader.Loader = new StreamLoader();
-            //this.DataContext = await SongLoader.Load();
+            SongLoader.Loader = new StreamLoader();
+            this.DataContext = await SongLoader.Load();
 
-            this.DataContext = await SongLoader.ImprovedLoad();
+            //this.DataContext = await SongLoader.ImprovedLoad();
         }
     }
 }
