@@ -42,7 +42,7 @@ namespace MyTunes
 
                 foreach (var song in songs)
                 {
-                    song.Name = song.Name.MessUpName();
+                    song.Name = song.Name.RuinSongName();
                 }
 
                 return songs;
