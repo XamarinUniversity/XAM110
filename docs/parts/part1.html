@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 1: Share code using a Shared Project</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM110 Intro to Cross-Platform</header>
+
+    <section id="main">
+        <h2>Exercise 1: Share code using a Shared Project</h2>
+<p>The goal of this exercise is to load data from a JSON file and display it in an existing Xamarin application. The code to manage loading the file will be shared between the platform-specific projects using a Shared Project.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>In your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course exercise materials</a>, find the <strong>Exercise 1 &gt; Start</strong> folder. We will be using the <strong>MyTunes</strong> starter solution and the additional assets found there.</p>
+<ol>
+<li>Open the <strong>MyTunes.sln</strong> solution and build it to make sure you are ready to begin.</li>
+</ol>
+<blockquote class="info-quote">NOTE: Make sure you have selected a startup project and platform your individual development environment supports.
+</blockquote>
+
+<hr>
+<h2>Add the Shared Project</h2>
+<p>As a first step, let's add a new Shared Project into the solution.</p>
+<ide name="xs">
+<ol>
+<li>Right click on the Solution node and select <strong>Add &gt; Add a New Project</strong>.</li>
+<li>
+Select <strong>Shared Project</strong> - it can be found in the <strong>Multiplatform &gt; Library</strong> category. Click <strong>Next</strong> to continue.
+<img src="images/SAP-XS.png" alt="Selecting the Shared Project template in the New Project wizard." title="Create a new Shared Project" />
+</li>
+<li>
+Name the project &quot;MyTunes.Shared&quot; and click <strong>Create</strong> to create the project.
+<img src="images/SAP-XS2.png" alt="Configuring the new project settings in the New Project wizard." title="Naming the new project" />
+</li>
+<li>You can delete the template C# file added to the project if there is one. We will replace it with some pre-written files.</li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>Right click on the solution name in the Solution Explorer and select <strong>Add -&gt; New project...</strong>.</li>
+<li>
+Select <strong>Shared Project</strong> - it can be found under the <strong>Visual C#</strong> category, or you can use the Search Box at the top of the dialog to quickly locate the template.
+<img src="images/New-Project-VS.png" alt="Creating and naming a new project from the Shared Project template in the New Project wizard." title="Create a new Shared Project" />
+</li>
+<li>Name the project &quot;MyTunes.Shared&quot;</li>
+<li>Click <strong>OK</strong> to create the project.</li>
+</ol>
+</ide>
+
+<hr>
+<h2>Add provided code to the Shared Project</h2>
+<p>In the <strong>Exercise 1 &gt; Assets</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a> there are two source files you need to add to your shared project:</p>
+<table>
+<thead>
+<tr>
+	<th>File</th>
+	<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><strong>Song.cs</strong></td>
+	<td>this defines a class which provides information about a single song.</td>
+</tr>
+<tr>
+	<td><strong>SongLoader.cs</strong></td>
+	<td>this is a class which can parse a JSON file off disk into a set of Song objects. It utilizes the Newtonsoft Json.NET parser.</td>
+</tr>
+</tbody>
+</table>
+<ide name="xs">
+<ol>
+<li>Add both C# files to your shared project - right-click on the project node in the Solution pad and select <strong>Add &gt; Add Files...</strong>; you can either add the files into the root of the project, or create a folder in the project to store them in.</li>
+<li>Look at both source files to get a sense of the content you will be working with.</li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>Add both C# files to your shared project - right-click on the project node in the Solution Explorer and select <strong>Add &gt; Existing Item...</strong>; you can either add the files into the root of the project, or create a folder in the project to store them in.</li>
+<li>Look at both source files to get a sense of the content you will be working with.</li>
+</ol>
+</ide>
+
+<hr>
+<h2>Add a reference to the Shared Project</h2>
+<p>Next, we'll reference the shared project from each of the platform-specific projects.</p>
+<ide name="vs">
+<ol>
+<li>Right-click on each platform specific project and open the <strong>Add &gt; References...</strong> dialog (or right-click the desired projects <strong>References</strong> node and select <strong>Add Reference...</strong>).</li>
+<li>Select the <strong>Shared Projects</strong> section, and then select the shared project you created earlier.</li>
+</ol>
+<figure class="figure">
+<img src="images/VS-SAP.png" alt="Adding a project reference from platform projects to the shared project with the Reference Manager." title="Add a reference to the shared project" />
+<figcaption class="figure-caption">Add a reference to the shared project</figcaption>
+</figure>
+<ol start="3">
+<li>Do this for each of the platform-specific projects you want to work with (iOS | Android | Windows).</li>
+</ol>
+</ide>
+<ide name="xs">
+<ol>
+<li>Right-click on the <strong>References</strong> folder in each platform-specific project and select <strong>Edit References...</strong>.</li>
+<li>In the references dialog, select the <strong>Projects</strong> tab and then select the <strong>MyTunes.Shared</strong> project in the list.</li>
+</ol>
+<figure class="figure">
+<img src="images/XS-AddRef.png" alt="Adding a project reference from platform projects to the shared project with the Edit References window." title="Add a reference to the shared project" />
+<figcaption class="figure-caption">Add a reference to the shared project</figcaption>
+</figure>
+<ol start="3">
+<li>Do these steps for each of the projects you want to work with (iOS | Android).</li>
+</ol>
+</ide>
+<p>If you try building the projects now you'll get a compilation error. We'll need to add a reference to <strong>Newtonsoft Json.NET</strong> (which we'll do in the step).</p>
+
+<hr>
+<h2>Add the Json.NET NuGet package</h2>
+<ide name="xs">
+<ol>
+<li>Open the NuGet dialog by right-clicking on the <strong>Packages</strong> folder in each of the platform-specific projects you want to work with and selecting <strong>Add Packages....</strong></li>
+<li>Search online and find the <strong>Newtonsoft.Json</strong> component - it should be one of the first packages displayed (due to its popularity).</li>
+</ol>
+<figure class="figure">
+<img src="images/AddPackage-XS.png" alt="image" />
+</figure>
+</ide>
+<ide name="vs">
+<ol>
+<li>Open the NuGet Package Manager - right-click on the <strong>References</strong> folder of a platform head project and select <strong>Manage NuGet Packages...</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="images/VS2015-nuget.png" alt="image" style="max-width: 100%;" />
+</figure>
+<ol start="2">
+<li>In the <strong>Browse</strong> tab, search for <strong>Newtonsoft.Json</strong> - it should be one of the first results (due to its popularity).</li>
+</ol>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T6742bf56de8d4a87bfa3a5b85092d4b6">Add via Package Manager Console</button>
+<div class="collapse" id="T6742bf56de8d4a87bfa3a5b85092d4b6">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Newtonsoft.Json
+</code></pre>
+
+<p>This will install the package in all compatible projects in your solution.</p>
+</p>
+</div>
+</div>
+</p>
+</ide>
+<ol start="3">
+<li>Add the package to each of your supported platforms - the package must be added into the platform-specific projects, notice it's not possible to add a NuGet package to the shared project.</li>
+<li>You should now be able to compile each platform-specific project.</li>
+</ol>
+
+<hr>
+<h2>Use the song loader from the Shared Project</h2>
+<p>Now, let's add some code into each project to use load data using the <strong>SongLoader</strong> class. Follow the steps below for each platform you will be using:</p>
+<div id="accordion2" role="tablist" aria-multiselectable="true">
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T0330c1ee46d2445faf8733517b97a643" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T6b57d40a2792459c87ba139eb6abc655" href="#T6b57d40a2792459c87ba139eb6abc655">
+<h4>
+<a class="collapsed" href="#">
+<p>iOS</p>
+</a>
+</h4>
+</div>
+<div id="T6b57d40a2792459c87ba139eb6abc655" class="collapse" role="tabpanel" aria-labelledby="T0330c1ee46d2445faf8733517b97a643">
+<div class="card-block">
+<ol>
+<li>Locate the <code>ViewDidLoad</code> method in the <strong>MyTunesViewController.cs</strong>.</li>
+<li>Comment out the existing <code>TableView.Source</code> assignment.</li>
+<li>Load the data using <code>SongLoader.Load</code>. This method uses the Task based Async pattern; you will need to await the call and decorate <code>ViewDidLoad</code> with the <code>async</code> keyword.</li>
+<li>Call <code>ToList</code> on the <code>IEnumerable&lt;Song&gt;</code> returned from <code>SongLoader.Load</code> - we'll use this in the next step. (This will require the <code>System.Linq</code> namespace.)</li>
+<li>Create a new <code>ViewControllerSource&lt;Song&gt;</code> and assign the following properties:</li>
+<li><code>DataSource</code> to the List<Song> from the previous step.</li>
+<li><code>TextProc</code> to a lambda that returns the name of a song: <code>s =&gt; s.Name</code>.</li>
+<li><code>DetailTextProc</code> to a lambda that returns the artist and album: <code>s =&gt; s.Artist + &quot; - &quot; + s.Album</code>.</li>
+<li>Assign the <code>ViewControllerSource</code> to <code>TableView.Source</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System.Linq;
+...
+public async override void ViewDidLoad()
+{
+    base.ViewDidLoad();
+
+    //TableView.Source = new ViewControllerSource&lt;string&gt;(TableView) {
+    //    DataSource = new string[] { &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot; },
+    //};
+
+    // Load the data
+    var data = await SongLoader.Load();
+
+    // Register the TableView's data source
+    TableView.Source = new ViewControllerSource&lt;Song&gt;(TableView)
+    {
+        DataSource = data.ToList(),
+        TextProc = s =&gt; s.Name,
+        DetailTextProc = s =&gt; s.Artist + &quot; - &quot; + s.Album,
+    };
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T89979e7d480b4674ae1d72758cf198dc" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="Te02f7569cbe9447e86615db43f0318cb" href="#Te02f7569cbe9447e86615db43f0318cb">
+<h4>
+<a class="collapsed" href="#">
+<p>Android</p>
+</a>
+</h4>
+</div>
+<div id="Te02f7569cbe9447e86615db43f0318cb" class="collapse" role="tabpanel" aria-labelledby="T89979e7d480b4674ae1d72758cf198dc">
+<div class="card-block">
+<ol>
+<li>Locate the <code>OnCreate</code> method in <strong>MainActivity.cs</strong>.</li>
+<li>Comment out the existing <code>ListAdapter</code> assignment. </li>
+<li>Load the data using <code>SongLoader.Load</code>. This method uses the Task based Async pattern; you will need to await the call and decorate <code>OnCreate</code> with the <code>async</code> keyword.</li>
+<li>Call <code>ToList</code> on the <code>IEnumerable&lt;Song&gt;</code> returned from <code>SongLoader.Load</code> - we'll use this in the next step. (This will require the <code>System.Linq</code> namespace.)</li>
+<li>Create a new <code>ListAdapter&lt;Song&gt;</code> and assign the following properties:</li>
+<li>Set the <code>DataSource</code> property to your new list.</li>
+<li>Set the <code>TextProc</code> to a lambda that returns the song name: <code>s =&gt; s.Name</code>.</li>
+<li>Set the <code>DetailTextProc</code> to a lambda that returns the artist and album: <code>s =&gt; s.Artist + &quot; - &quot; + s.Album</code>.</li>
+<li>Assign the object to the <code>ListAdapter</code> property.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System.Linq;
+...
+protected async override void OnCreate(Bundle bundle)
+{
+    base.OnCreate(bundle);
+
+    //ListAdapter = new ListAdapter&lt;string&gt;() {
+    //    DataSource = new[] { &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot; }
+    //};
+
+    var data = await SongLoader.Load();
+
+    ListAdapter = new ListAdapter&lt;Song&gt;()
+    {
+        DataSource = data.ToList(),
+        TextProc = s =&gt; s.Name,
+        DetailTextProc = s =&gt; s.Artist + &quot; - &quot; + s.Album
+    };
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="Tfc25caae736f475bbf26c90f667bde85" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T231c3f002618424b9b5d8d86f95c23b9" href="#T231c3f002618424b9b5d8d86f95c23b9">
+<h4>
+<a class="collapsed" href="#">
+<p>Windows</p>
+</a>
+</h4>
+</div>
+<div id="T231c3f002618424b9b5d8d86f95c23b9" class="collapse" role="tabpanel" aria-labelledby="Tfc25caae736f475bbf26c90f667bde85">
+<div class="card-block">
+<ol>
+<li>Locate the <code>OnNavigatedTo</code> method in the <strong>MainPage.xaml.cs</strong>.</li>
+<li>Comment out the existing <code>this.DataContext</code> assignment and <code>tempData</code> variable.</li>
+<li>Load the data using <code>SongLoader.Load</code>. This method uses the Task based Async pattern; you will need to await the call and decorate <code>OnNavigatedTo</code> with the <code>async</code> keyword.</li>
+<li>Call <code>ToList</code> on the <code>IEnumerable&lt;Song&gt;</code> returned from <code>SongLoader.Load</code> - we'll use this in the next step. (This will require the <code>System.Linq</code> namespace.)</li>
+<li>Assign the resulting list to the <code>DataContext</code> property.</li>
+</ol>
+<blockquote class="info-quote">There is already a <code>DataTemplate</code> setup to display the song data.
+</blockquote>
+<pre class="prettyprint-collapse"><code>protected override async void OnNavigatedTo(NavigationEventArgs e)
+{
+    //var tempData = Enumerable.Range(1, 3).Select(i =&gt;
+    //{
+    //    return new
+    //    {
+    //        Name = &quot;Song&quot; + i,
+    //        Artist = &quot;Artist&quot; + i,
+    //        Album = &quot;Album&quot; + i
+    //    };
+    //}).ToList();
+
+    // this.DataContext = tempData;
+
+    var data = await SongLoader.Load();
+
+    DataContext = data.ToList();
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+<p>Make sure each project compiles. It will fail at runtime because we haven't provided the data yet - let's do that next.</p>
+
+<hr>
+<h2>Add the songs.json data file</h2>
+<p>Next you will add the <strong>songs.json</strong> file into each platform-specific project from the <strong>Exercise 1 &gt; Assets</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a></p>
+<ul>
+<li><strong>iOS</strong> - Add the <strong>songs.json</strong> file into the <strong>Resources</strong> folder and make sure the build action is marked as <strong>BundleResource</strong></li>
+<li><strong>Android</strong> - Add the <strong>songs.json</strong> file into the <strong>Assets</strong> folder and make sure the build action is marked as <strong>AndroidAsset</strong>.</li>
+<li><strong>UWP</strong> - Add the <strong>songs.json</strong> file into the root of the Windows project and set the build action to <strong>Content</strong>.</li>
+</ul>
+<p>Make sure all your projects still build successfully. The platform projects will throw an ArgumentNullException at runtime if run, though, until we read our new data.</p>
+
+<hr>
+<h2>Add code to read the data file</h2>
+<p>Now that the data file has been added to each platform-specific project, we need to use platform-specific code to load our data. We can use any of the three approaches outlined in the course (conditional compilation, cloning and partial classes), and you should experiment and try each one in turn; however for the sake of time, we will use conditional compilation in these instructions.</p>
+<p>All our work will be done in the <strong>SongLoader</strong> class in the shared project, specifically we'll be working in the existing <code>OpenData</code> method which will open the file and return it as a <code>System.IO.Stream</code>.</p>
+<p>Keep in mind; with conditional compilation, the definition of the <code>OpenData</code> method may change as you add support for additional platforms. For example, adding support for the <code>Windows.Storage</code> APIs in Windows will cause the method to change and support a Task based return type. </p>
+<p>You still want to use a <strong>single</strong> <code>OpenData</code> method and as a result you may have to refactor the code consuming this method.</p>
+<p>Follow the instructions below for the target platforms you want to support.</p>
+<div id="accordion2" role="tablist" aria-multiselectable="true">
+<div class="card">
+<div class="card-header collapsed" role="tab" id="Tf57f13dc3dee4cd08526a27d78db677a" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T4ab1c1e8840e4939a7627b182c23d84b" href="#T4ab1c1e8840e4939a7627b182c23d84b">
+<h4>
+<a class="collapsed" href="#">
+<p>iOS</p>
+</a>
+</h4>
+</div>
+<div id="T4ab1c1e8840e4939a7627b182c23d84b" class="collapse" role="tabpanel" aria-labelledby="Tf57f13dc3dee4cd08526a27d78db677a">
+<div class="card-block">
+<ol>
+<li>In the <code>OpenData</code> method, add a compiler directive for iOS; The Xamarin.iOS compiler defines <code>__IOS__</code> for this purpose. (If you are doing multiple platforms, use can use <code>elif</code> for &quot;else if&quot; on subsequent conditional blocks.)</li>
+<li>In your conditional code block, use the <code>System.IO.File.OpenRead</code> method to open the file using the <code>const string</code> <strong>FileName</strong>.</li>
+<li>Make sure the iOS project builds.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>private static Stream OpenData()
+{
+<mark>#if __IOS__</mark>
+<mark>    return File.OpenRead(Filename);</mark>
+#else
+   // TODO: add code to open file here.
+    return null;
+#endif
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="Tc1cf4d7ba2bd4333979611e9dcb682b4" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T4ded3e20d65d40bd9ed8bfc27d190b04" href="#T4ded3e20d65d40bd9ed8bfc27d190b04">
+<h4>
+<a class="collapsed" href="#">
+<p>Android</p>
+</a>
+</h4>
+</div>
+<div id="T4ded3e20d65d40bd9ed8bfc27d190b04" class="collapse" role="tabpanel" aria-labelledby="Tc1cf4d7ba2bd4333979611e9dcb682b4">
+<div class="card-block">
+<ol>
+<li>Add a conditional marker for the Android code; Xamarin.Android defines the <code>__ANDROID__</code> symbol for this. (If you are doing multiple platforms, use can use <code>elif</code> for &quot;else if&quot; on subsequent conditional blocks.)</li>
+<li>In your conditional code block, use the <code>Android.App.Application.Context.Assets.Open</code> method to open the filename.</li>
+<li>Make sure the Android project builds.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>private static Stream OpenData()
+{
+<mark>#if __ANDROID__</mark>
+<mark>    return Android.App.Application.Context.Assets.Open(Filename);</mark>
+#else
+   // TODO: add code to open file here.
+    return null;
+#endif
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="Tb8bf8734f3874abcb97e650dce387043" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T52ef7336789f4ef589d8b0663c144a96" href="#T52ef7336789f4ef589d8b0663c144a96">
+<h4>
+<a class="collapsed" href="#">
+<p>Windows</p>
+</a>
+</h4>
+</div>
+<div id="T52ef7336789f4ef589d8b0663c144a96" class="collapse" role="tabpanel" aria-labelledby="Tb8bf8734f3874abcb97e650dce387043">
+<div class="card-block">
+<ol>
+<li>Add a conditional marker for Windows; Microsoft defines <code>WINDOWS_UWP</code>. (If you are doing multiple platforms, use can use <code>elif</code> for &quot;else if&quot; on subsequent conditional blocks.)</li>
+<li>In your conditional code blocks, use the <code>Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync</code> method to open the filename. This returns a <code>StorageFile</code>.</li>
+<li>Call <code>OpenStreamForReadAsync</code> on the <code>StorageFile</code> to retrieve a Stream.</li>
+<li>Because UWP APIs are frequently <code>async</code>, you will need to change the method signature to be <code>async</code> and use the <code>await</code> keyword - the calling code will also need to be adjusted for this.</li>
+<li>The code for the other platforms can remain the same - however you will get a compiler warning because the method is decorated with <code>async</code> but doesn't contain any awaited calls for iOS and Android. You can ignore these warnings.</li>
+<li>Make sure the Windows project builds.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public static async Task&lt;IEnumerable&lt;Song&gt;&gt; Load()
+{
+    using (var reader = new StreamReader(<mark>await</mark> OpenData())) {
+        return JsonConvert.DeserializeObject&lt;List&lt;Song&gt;&gt;(
+                await reader.ReadToEndAsync());
+    }
+}
+
+private <mark>async</mark> static <mark>Task&lt;Stream&gt;</mark> OpenData()
+{
+<mark>#if WINDOWS_UWP</mark>
+<mark>   var sf = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(Filename);</mark>
+<mark>   return await sf.OpenStreamForReadAsync();</mark>
+#else
+   // TODO: add code to open file here.
+   return null;
+#endif
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+
+<hr>
+<h2>Run the application</h2>
+<p>Run the application on each platform - they should all display the song list.</p>
+<div class="row">
+<div class="col-lg-4">
+<img src="./images/android-final.png" alt="Screenshot of the completed exercise app running on Android" />
+</div>
+<div class="col-lg-4">
+<img src="./images/uwp-final.png" alt="Screenshot of the completed exercise app running on UWP" />
+</div>
+<div class="col-lg-4">
+<img src="./images/ios-final.png" alt="Screenshot of the completed exercise app running on iOS" />
+</div>
+</div>
+
+<hr>
+<h2>Exercise summary</h2>
+<strong>Congratulations!</strong>
+<p>In this exercise, we created a Shared Project and referenced it from iOS, Android, and Windows UWP projects. The Shared Project contained both platform-agnostic code, as well as platform-specific code isolated using compiler directives for each platform.</p>
+<p>You can view the completed solution in the <strong>Exercise 1 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>
