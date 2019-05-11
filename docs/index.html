@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>XAM110 Intro to Cross-Platform</title>
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/prettify.css">
+    <link rel="stylesheet" type="text/css" href="./parts/res/styles/styles.css">
+</head>
+
+<body>
+    <!-- This will be filled in at runtime -->
+    <header role="course-title"></header>
+    <section id="main">
+        <h2>Introduction to Cross-Platform Mobile Development (XAM110)</h2>
+<p>One of the advantages to using Xamarin over the traditional platform-specific approach is the level of code-sharing you can achieve across iOS, Android, and Windows. In this class, we will explore ways to structure your shared code using Portable Class Libraries, .NET Standard libraries, and Shared Asset Projects. We will look at the pros and cons of each approach and see how to access platform-specific features in each model.</p>
+<h3>Upon completion you will be able to:</h3>
+<ul>
+<li>Work with shared packages from NuGet</li>
+<li>Use Shared Projects to share code between platforms</li>
+<li>Use Portable Class Libraries to share code between platforms</li>
+<li>Share code using .NET Standard libraries</li>
+</ul>
+<h3>Course exercise download</h3>
+<p>Exercise materials are available from <a href="https://github.com/XamarinUniversity/XAM110/">GitHub</a>. The code can be cloned through a desktop Git client or <a href="https://github.com/XamarinUniversity/XAM110/archive/master.zip">downloaded directly</a> as a ZIP file.</p>
+<blockquote class="info-quote">If you are using Windows, try to select a location with a shorter path length to make sure you don't exceed the 260 character limit.
+</blockquote>
+<h2>Lecture</h2>
+<p>Here are the <a target="_blank" href="./parts/slides.pdf">lecture slides</a>.</p>
+<h2>Exercises</h2>
+<ol>
+<li>
+<a href="parts/part1.html">Exercise 1: Share code using a Shared Project</a>
+<br>
+<p>The goal of this exercise is to load data from a JSON file and display it in an existing Xamarin application. The code to manage loading the file will be shared between the platform-specific projects using a Shared Project.</p>
+</li>
+<li>
+<a href="parts/part2.html">Exercise 2: Share code using Portable Class Libraries</a>
+<br>
+<p>We will work on the same project we did in the previous exercise, but this time we will use a <strong>Portable Class Library</strong> to share our JSON data loading between the iOS, Android and Windows projects. We will be starting almost where you left off in the last exercise, without the Shared Project implementation, but the code in the platform projects has already been filled out.</p>
+</li>
+<li>
+<a href="parts/part3.html">Exercise 3: Share code using a .NET Standard library</a>
+<br>
+<p>To explore <strong>.NET Standard</strong> class libraries, we will implement some shared code within a few .NET Standard target versions to see how it affects the available APIs.</p>
+</li>
+<li>
+<a href="parts/part4.html">Exercise 4: Upgrade a Portable Class Library to .NET Standard</a>
+<br>
+<p>We will work on the same project we did in the previous exercise. To explore the interoperability of Portable Class Libraries and <strong>.NET Standard</strong> class libraries, we will migrate our code from the MyTunes PCL library to our library targeting .NET Standard.</p>
+</li>
+</ol>
+
+            <!-- This section is for additional links and examples that are relevant to 
+                the material in this course -->
+            <h2>Additional resources</h2>
+                <h3>Popular components</h3>
+                    <p>Here are some popular open-source projects from Xamarin, you can install these into your applications using NuGet.</p>
+                <div class="wslist">
+                    <a target="_blank" href="https://github.com/jamesmontemagno/Xamarin.Plugins">Cross platform Xamarin and Windows plugins for PCLs</a>        
+                    <a target="_blank" href="https://github.com/xamarin/Xamarin.Mobile">Xamarin.Mobile cross-platform abstraction for Contacts, Geolocation and the camera</a>        
+                    <a target="_blank" href="https://github.com/xamarin/Xamarin.Auth">Cross-Platform authentication API (OAuth)</a>        
+                </div>
+                <h3>High Level Concepts (Review)</h3>
+                <div class="wslist">
+                    <a target="_blank" href="http://docs.xamarin.com/guides/cross-platform/application_fundamentals/building_cross_platform_applications/">Building Cross Platform Applications</a>        
+                    <a target="_blank" href="http://docs.xamarin.com/guides/cross-platform/application_fundamentals/building_cross_platform_applications/sharing_code_options/">Sharing Code Options</a>        
+                    <a target="_blank" href="http://docs.xamarin.com/guides/cross-platform/application_fundamentals/data/">Cross-Platform Data Access</a>        
+                    <a target="_blank" href="http://docs.xamarin.com/guides/cross-platform/application_fundamentals/web_services/">Cross-Platform Web Services</a>        
+                </div>
+    </section>
+    <script src="./parts/res/js/jquery.min.js"></script>
+    <script src="./parts/res/js/prettify.js"></script>
+    <script src="./parts/res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

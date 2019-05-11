@@ -1,0 +1,449 @@
+@font-face {
+    font-family: "WeblySleek UI";
+    src: url('../fonts/weblysleekui/weblysleekuisl.eot');
+    src: url('../fonts/weblysleekui/weblysleekuisl.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/weblysleekui/weblysleekuisl.woff') format('woff'),
+        url('../fonts/weblysleekui/weblysleekuisl.ttf') format('truetype'),
+        url('../fonts/weblysleekui/weblysleekuisl.svg#WeblySleekUISemilight') format('svg');
+    font-weight: 400
+}
+
+@font-face {
+    font-family: "WeblySleek UI";
+    src: url('../fonts/weblysleekui/weblysleekuisb.eot');
+    src: url('../fonts/weblysleekui/weblysleekuisb.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/weblysleekui/weblysleekuisb.woff') format('woff'),
+        url('../fonts/weblysleekui/weblysleekuisb.ttf') format('truetype'),
+        url('../fonts/weblysleekui/weblysleekuisb.svg#WeblySleekUISemibold') format('svg');
+    font-weight: 700
+}
+
+@font-face {
+    font-family: "WeblySleek UI";
+    src: url('../fonts/weblysleekui/weblysleekuil.eot');
+    src: url('../fonts/weblysleekui/weblysleekuil.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/weblysleekui/weblysleekuil.woff') format('woff'),
+        url('../fonts/weblysleekui/weblysleekuil.ttf') format('truetype'),
+        url('../fonts/weblysleekui/weblysleekuil.svg#WeblySleekUILight') format('svg');
+    font-weight: 100
+}
+
+html {
+    background: #fff;
+    font-size: 16px;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    font-family: "WeblySleek UI", "Segoe UI", "Helvetica Neue", 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-style: normal;
+}
+
+section#main {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 900px;
+}
+
+#main {
+    overflow: auto;
+    min-height: 100%;
+    padding-bottom: 60px;
+
+}
+
+header {
+    font-size: 16pt;
+    color: white;
+    height: 55px;
+    line-height: 55px;
+    background-color: #2c3e50;
+    background: #2c3e50 url('../images/xamarin-university-logo.png') no-repeat center right 20px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: calc(100% - 20px);
+}
+
+#header-logo {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height:60px;
+    font-size: 9pt;
+    margin-left: 20px;
+    color: gray;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+h1 {
+    font-size: 50px;
+    border-bottom: 1px solid black;
+    color: #2C3E50;
+    font-weight: 100;
+    line-height: 1.2;
+    margin: .5em 0
+}
+
+h1:not(:first-child) {
+    margin-top: 1em
+}
+
+h2 {
+    color: #3498DB;
+    font-size: 30px;
+    font-weight: 100;
+    line-height: 1.2;
+    margin: .5em 0
+}
+
+h2:not(:first-child) {
+    margin-top: 1em
+}
+
+h3 {
+    color: #7f8c8d;
+    font-size: 20px;
+    font-weight: normal;
+    margin: .5em 0
+}
+
+h3:not(:first-child) {
+    margin-top: 1em
+}
+
+h4,
+h5,
+h6 {
+    color: #4e5758;
+    font-size: 16px;
+    font-weight: bold;
+    margin: .5em 0
+}
+
+h4:not(:first-child),
+h5:not(:first-child),
+h6:not(:first-child) {
+    margin-top: 1em
+}
+
+img {
+    margin-top: 0.1in;
+    margin-bottom: 0.1in;
+    max-width: 90%;
+    height: auto;
+}
+
+img.image-map {
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+ol,dl,ul,p {
+    line-height: 1.5;
+}
+
+ol,dl,ul {
+    margin-left: .25in;
+}
+
+a { 
+    cursor: pointer;
+}
+
+a:link, a:visited {
+    color: #186ac1;
+}
+
+a:hover {
+    color: #3697ff;
+}
+
+p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+figure {
+    margin: 0 0 1rem;
+}
+
+figcaption {
+    display: block;
+    text-align: center;
+}
+
+.figure {
+    display: inline-block;
+}
+
+table.noborder {
+    border: 0 solid;
+}
+
+table.noborder td {
+    border: 0 solid;
+}
+
+table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #c0c0c0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+table.table thead th,
+table th {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #c0c0c0;
+    background-color: #dedede;
+    font-size: inherit;
+    font-weight: bold;
+}
+
+table td {
+    padding: 8px;
+    border: 1px solid #c0c0c0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+table td,
+table tr {
+    background-color: transparent;
+}
+
+.wsblock {
+    border: 1px solid #c0c0c0;
+    padding: 5px;
+    margin-left: .5in;
+    margin-top: -12px;
+    margin-bottom: .1in;
+    background-color: #fcfcfc;
+}
+
+.wsblock .wsitem {
+    margin-left: 0;
+}
+
+.wsblock .codeblock {
+    margin-left: .25in;
+    margin-right: .25in;
+}
+
+.wslist>a {
+    white-space: nowrap;
+    display: block;
+    margin-left: .5in;
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+.wsitem {
+    margin-left: .5in;
+    line-height: 1.5; 
+    display: block;
+    margin-bottom: .2in;
+}
+
+.wsitem>ol {
+    margin-top: 5px;
+    margin-left: 0in;
+}
+
+.wsitem>p {
+    margin-top: 5px;
+    margin-left: .1in;
+}
+
+.wsitem>ul {
+    margin-top: 5px;
+    margin-left: 0in;
+}
+
+.codeblock {
+    border: 1px solid #c0c0c0;
+    background: #f0f0f0;
+    padding: 5px;
+    margin-top: .1in;
+    margin-bottom: .1in;
+}
+
+.uiitem {
+    background: #f0f0f0;
+    padding: 3px 4px;
+    border-radius: 3px;
+    border: thin solid rgba(0, 0, 0, 0.2);
+    color: inherit;
+}
+
+.objective {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-left: 0;
+    margin-top: .1in;
+}
+
+a.uiitem {
+    text-decoration: none;
+}
+
+.align-right {
+    clear: both;
+    float: right;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+table.grid {
+    margin-top: 1em;
+    color:#333333;
+    border-width: 1px;
+    border-color: #909090;
+    border-collapse: collapse;
+}
+
+table.grid th {
+    border-width: 1px;
+    padding: 8px;
+    text-align: left;
+    border-style: solid;
+    border-color: #909090;
+    background-color: #dedede;
+    font-weight: bold;
+}
+
+table.grid td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #909090;
+}
+
+table.grid td table tr {
+    background-color: transparent;
+}
+
+table.grid td table tr td {
+    border-style: none;
+}
+
+.oddrowcolor {
+    background-color:#ffffff;
+}
+
+.evenrowcolor {
+    background-color:#f0f0f0;
+}
+
+.highlight {
+  background-color: #ff0;
+}
+
+.ide-selector {
+    font-size: 14px;
+    margin-top: 27px;
+    position: absolute;
+    right: 10px;
+}
+
+.ide-selector a {
+    display: inline-block;
+    color: #1faece;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 6px;
+    position: relative;
+}
+
+.ide-selector a.active {
+    color: #365271;
+    border-bottom: 2px solid #889db5;
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: 40px 5px 40px 5px;
+}
+
+hr + h2 {
+    margin-bottom: 0px;
+}
+
+blockquote {
+    margin: .2in .2in .2in .1in;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: #ffffdd;
+    border-left: 6px solid #ffeb3b;
+}
+
+.info-quote {
+    background-color: #d9edf7;
+    border-left: 6px solid #31708f;
+}
+
+.danger-quote {
+    background-color: #f2dede;
+    border-left: 6px solid #a94442;
+}
+
+.carousel-header, .carousel-controls {
+    display: none;
+}
+
+.popover {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+    color: black;
+    display: none;
+    font-size: 12px;
+    padding: 7px 10px;
+    position: absolute;
+    width: 50%;
+    z-index: 4;
+}
+
+/* For prettify */ 
+.com       { color: #008000; }
+.str, .tag { color: #A31515; }
+.kwd, .atv { color: #0000FF; }
+.typ       { color: #2B91AF; }
+.lit, .atn { color: #FF0000; }
+.pun, .pln { color: #000000; }
+.dec       { color: #800080; }
+
+pre.prettyprint{
+    width: auto;
+    margin-right: 50px;
+    overflow: auto;
+    max-height: 600px;
+    padding: 8px;
+}
+
+

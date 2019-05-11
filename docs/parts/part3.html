@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 3: Share code using a .NET Standard library</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM110 Intro to Cross-Platform</header>
+
+    <section id="main">
+        <h2>Exercise 3: Share code using a .NET Standard library</h2>
+<p>To explore <strong>.NET Standard</strong> class libraries, we will implement some shared code within a few .NET Standard target versions to see how it affects the available APIs.</p>
+<blockquote class="info-quote">To be able to use some of the .NET Standard components in your projects, you will also need to have the .NET Core SDK installed. You can download the <a href="https://www.microsoft.com/net/download/windows" target="_blank">.NET Core SDK</a> (now referred to as the .NET SDK) to add the necessary components. On Windows, the <strong>.NET Core cross-platform development</strong> workload in the Visual Studio Installer also installs the .NET Core SDK.
+</blockquote>
+<br/>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 2 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+<hr>
+<h2>Add .NET Standard class library</h2>
+<p>Let's create a class library targeting .NET Standard in our solution. This will be where we test out the available APIs.</p>
+<p>Work through the New Project wizard in Visual Studio to add a .NET Standard class library by following these steps.</p>
+<ide name="xs">
+<div class="carousel-header">
+There are multiple steps to the wizard, use the chevrons <i class="fa fa-chevron-left" aria-hidden="true"></i> and <i class="fa fa-chevron-right" aria-hidden="true"></i> below to walk you through each step.
+</div>
+<div id="T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" class="carousel carousel-wizard slide" data-ride="carousel" data-wrap="false" data-interval="false">
+<div class="carousel-controls">
+<a class="carousel-control-prev" href="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide="prev">
+<i class="fa fa-chevron-left" aria-hidden="true"></i>
+<span class="sr-only">Previous</span>
+</a><ol class="carousel-indicators">
+<li data-target="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide-to="0" class="active"></li>
+<li data-target="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide-to="1"></li>
+<li data-target="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide-to="2"></li>
+<li data-target="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide-to="3"></li>
+</ol>
+<a class="carousel-control-next" href="#T257bc1eb6fbe496aaa4c3f4fbeb5e6d4" data-slide="next">
+<i class="fa fa-chevron-right" aria-hidden="true"></i>
+<span class="sr-only">Next</span></a>
+</div>
+<div class="carousel-inner" role="listbox">
+<div class="carousel-item active">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 1 - Add new project to the solution.
+</h3>
+<p>
+Right-click the solution node from the Solution pad and select <strong>Add &gt; Add New Project…</strong>.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs4mac-add-project.png" alt="Add a new project from the Solution pad solution node's right-click contextual menu.">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Select the .NET Standard class library project.
+</h3>
+<p>
+In the New Project wizard, select <strong>Multiplatform &gt; Library &gt; .NET Standard Library</strong> and click <strong>Next</strong> to continue.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs4mac-add-netstandard.png" alt="Picking the .NET Standard Library from the new project wizard.">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Select the .NET Standard class library project.
+</h3>
+<p>
+Set the <strong>Target Framework</strong> of our new class library to <strong>.NET Standard 1.0</strong>.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs4mac-new-netstandard-version.png" alt="Configuring the initial .NET Standard version for a new .NET Standard project in the New Project wizard.">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Set the library name
+</h3>
+<p>
+Type in the name for your new library, use the name <strong>MyTunes.NetStandard</strong>. Click <strong>Create</strong> to create the library.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs4mac-new-netstandard-details.png" alt="Setting initial project details in the .NET Standard Library screen of the New Project wizard.">
+</div>
+</div>
+</div>
+</ide>
+<ide name="vs">
+<div class="carousel-header">
+There are multiple steps to the wizard, use the chevrons <i class="fa fa-chevron-left" aria-hidden="true"></i> and <i class="fa fa-chevron-right" aria-hidden="true"></i> below to walk you through each step.
+</div>
+<div id="T0cc3167d0de743ca9c4dc8868be2186f" class="carousel carousel-wizard slide" data-ride="carousel" data-wrap="false" data-interval="false">
+<div class="carousel-controls">
+<a class="carousel-control-prev" href="#T0cc3167d0de743ca9c4dc8868be2186f" data-slide="prev">
+<i class="fa fa-chevron-left" aria-hidden="true"></i>
+<span class="sr-only">Previous</span>
+</a><ol class="carousel-indicators">
+<li data-target="#T0cc3167d0de743ca9c4dc8868be2186f" data-slide-to="0" class="active"></li>
+<li data-target="#T0cc3167d0de743ca9c4dc8868be2186f" data-slide-to="1"></li>
+</ol>
+<a class="carousel-control-next" href="#T0cc3167d0de743ca9c4dc8868be2186f" data-slide="next">
+<i class="fa fa-chevron-right" aria-hidden="true"></i>
+<span class="sr-only">Next</span></a>
+</div>
+<div class="carousel-inner" role="listbox">
+<div class="carousel-item active">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 1 - Add new project to the solution.
+</h3>
+<p>
+Right-click the solution node from the Solution pad and select <strong>Add &gt; New Project…</strong>.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vswin-add-project.png" alt="Add a new project from the Solution pad solution node's right-click contextual menu.">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Select the .NET Standard class library project.
+</h3>
+<p>
+In the New Project wizard, select <strong>Visual C# &gt; .NET Standard &gt; Class Library (.NET Standard)</strong>, set your project name to <strong>MyTunes.NetStandard</strong> and click <strong>OK</strong> to continue.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vswin-add-netstandard.png" alt="Picking the .NET Standard Library from the new project wizard.">
+</div>
+</div>
+</div>
+</ide>
+
+<hr>
+<h2>Set initial .NET Standard version</h2>
+<ide name="xs">
+<p>If you didn't set the .NET Standard version to <strong>.NET Standard 1.0</strong> in the new project wizard, set that in the project settings now.</p>
+<ol>
+<li>Right-click the library project in the Solution pad and chose <strong>Options</strong>.</li>
+<li>In the Project properties, under <strong>Build &gt; General &gt; Target framework</strong> choose <strong>.NETStandard 1.0</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/vs4mac-set-initial-netstandard-version.png" alt="Selecting initial .NET Standard target version of 1.0." style="max-width:100%" />
+</figure>
+</ide>
+<ide name="vs">
+<p>Before we start coding, let's set the initial target .NET Standard verison of our new class library as low as we can.</p>
+<ol>
+<li>Right-click the library project in the Solution Explorer and chose <strong>Properties</strong>.</li>
+<li>In the Project properties, under <strong>Application &gt; Target framework</strong> choose <strong>.NET Standard 1.0</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/vswin-set-initial-netstandard-version.png" alt="Selecting initial .NET Standard target version of 1.0." style="max-width:100%" />
+</figure>
+</ide>
+
+<hr>
+<h2>Reference .NET Standard library</h2>
+<ol start="2">
+<li>Add a reference to the new .NET Standard library to the existing <strong>MyTunes.Shared</strong> portable class library.</li>
+<li>Build the solution. The projects should all build properly - however our new .NET Standard library isn't doing any work yet.</li>
+</ol>
+
+<hr>
+<h2>Add an extension method</h2>
+<p>To show we have everything working, we'll add a simple extension method to call from our existing code.</p>
+<ol>
+<li>Open the default <strong>Class1.cs</strong> class provided with your new .NET Standard library.</li>
+<li>Change the <code>namespace</code> to <strong>MyTunes</strong>, as is was in our PCL. This will make it easier to consume the new extension without a <code>using</code> statement.</li>
+<li><strong>Rename</strong> the class to <strong>SongExtensions</strong>, and make it <code>static</code> for the extension method.</li>
+<li>Add a new static extension method named <strong>RuinSongName</strong> that extends the <strong>string</strong> type and returns a <strong>string</strong> instance.</li>
+<li>The extension method should return a <code>string.Replace</code> that alters any instance of <strong>Crocodile</strong> in a song name with <strong>Alligator</strong>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>namespace <mark>MyTunes</mark>
+{
+    public <mark>static</mark> class <mark>SongExtensions</mark>
+    {
+        <mark>public static string RuinSongName(this string songName)</mark>
+        <mark>{</mark>
+        <mark>    return songName.Replace(&quot;Crocodile&quot;, &quot;Alligator&quot;);</mark>
+        <mark>}</mark>
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Call the extention method from PCL</h2>
+<ol>
+<li>Open <strong>SongLoader.cs</strong> in the existing <strong>MyTunes.Shared</strong> PCL.</li>
+<li>Modify <strong>Load</strong> to call our new extension method, altering the song name for each song in a <code>foreach</code> loop.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>public static class SongLoader
+{
+    …
+    public static async Task&lt;IEnumerable&lt;Song&gt;&gt; Load()
+    {
+        using (var reader = new StreamReader(OpenData()))
+        {
+            <mark>var songs = JsonConvert.DeserializeObject&lt;List&lt;Song&gt;&gt;(await reader.ReadToEndAsync());</mark>
+            <mark>foreach (var song in songs) { song.Name = song.Name.RuinSongName(); }</mark>
+            <mark>return songs;</mark>
+        }
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Run the app</h2>
+<p>On your preferred platform, run the <strong>MyTunes</strong> app to make sure you see a song featuring the modified title <strong>&quot;Alligator Rock&quot;</strong>.</p>
+<figure class="figure">
+<img src="./images/ex3-uwp-complete.png" alt="MyTunes app running on UWP, showing the list of songs that includes a title modified by our new extension method, showing &quot;Alligator Rock&quot; by Elton John instead of &quot;Crocodile Rock&quot;." style="max-width:100%" title="MyTunes app running with an altered song list." />
+<figcaption class="figure-caption">MyTunes app running with an altered song list.</figcaption>
+</figure>
+
+<hr>
+<h2>Overreach .NET Standard version</h2>
+<p>Next we'll see what happens when we try to use code outside our current .NET Standard version.</p></p>
+<h3>Add <code>HttpClient</code> call</h3>
+<p>For a sample scenario, let's pretend we want to call out to a web service in our new <strong>RuinSongName</strong> method.</p>
+<blockquote class="danger-quote"><strong>Note:</strong> This is simply to demonstrate the concept. In practice, calling a web service for every song name would likely be terribly slow for your users.
+</blockquote>
+<ol>
+<li>
+To keep our <strong>HttpClient</strong> around, start by adding a static field to our <strong>SongExtensions</strong> class and the required <code>using System.Net.Http</code> statement.
+In the editor, notice Visual Studio is telling you it can't find the <code>HttpClient</code> type. We will fix this next.
+</li>
+</ol>
+<pre class="prettyprint-collapse"><code>…
+<mark>using System.Net.Http;</mark>
+
+namespace MyTunes
+{
+    public static class SongExtensions
+    {
+        <mark>static HttpClient httpClient = new HttpClient();</mark>
+        …
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Change .NET Standard version</h2>
+<p>Visual Studio is warning us about our use of the <code>HttpClient</code> type. This is because that set of APIs are not available in .NET Standard v1.0. Attempting to build our project now would result in a build error.</p>
+<ide name="xs">
+<ol>
+<li>Right-click the library project in the Solution pad and chose <strong>Options</strong>.</li>
+<li>In the Project properties, under <strong>Build &gt; General &gt; Target framework</strong> choose <strong>.NET Standard 1.1</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/vs4mac-increase-netstandard-version.png" alt="Incrementing .NET Standard target version to 1.1." style="max-width: 100%;" />
+</figure>
+</ide>
+<ide name="vs">
+<ol>
+<li>Right-click the library project in the Solution Explorer and chose <strong>Properties</strong>.</li>
+<li>In the Project properties, under <strong>Application &gt; Target framework</strong> choose <strong>.NET Standard 1.1</strong>.</li>
+</ol>
+<figure class="figure">
+<img src="./images/vswin-increase-netstandard-version.png" alt="Incrementing .NET Standard target version to 1.1." style="max-width: 100%;" />
+</figure>
+</ide>
+<ol start="3">
+<li>Try building your app.</li>
+</ol>
+<p>Now that we are targeting the version of .NET Standard that first included the <code>HttpClient</code> APIs, our code will now compile successfully.</p>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have utilized a library targeting .NET Standard to see how it can interact with your Xamarin apps and other libraries.</p>
+<p>We created a simple extension method called from our existing Portable Class Library, and then worked through exceeding the API availablility of a .NET Standard version and how increasing our target version can make those API calls available to our shared binary.</p>
+<p>You can view the completed solution in the <strong>Exercise 3 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

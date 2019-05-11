@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 2: Share code using Portable Class Libraries</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM110 Intro to Cross-Platform</header>
+
+    <section id="main">
+        <h2>Exercise 2: Share code using Portable Class Libraries</h2>
+<p>We will work on the same project we did in the previous exercise, but this time we will use a <strong>Portable Class Library</strong> to share our JSON data loading between the iOS, Android and Windows projects. We will be starting almost where you left off in the last exercise, without the Shared Project implementation, but the code in the platform projects has already been filled out.</p>
+<blockquote class="info-quote">Note: Portable Class Libraries have been deprecated in favor of .NET Standard libraries, but you may still find these libraries used in some third-party or legacy code. Knowledge about these libraries also transfers well to using .NET Standard projects.
+</blockquote>
+<br/>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>Let's begin with a fresh copy of the <strong>MyTunes</strong> application again. This is the same code you worked on in the previous exercise except all the shared code has been removed. As a result, the project will <em>not build</em> until we make some changes.</p>
+<ol>
+<li>
+Find the <strong>MyTunes</strong> starter solution in the <strong>Exercise 2 &gt; Start</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.
+</li>
+<li>
+Open the <strong>MyTunes.sln</strong> starter solution in either Visual Studio on Windows or Mac.
+</li>
+<li>
+Select a platform-specific startup project. To do this, you might have to change the target - for example, the iOS project will only be built if you select either an <strong>iPhone</strong> or <strong>iPhoneSimulator</strong> build type.
+</li>
+</ol>
+
+<hr>
+<h2>Add the Portable Class Library</h2>
+<p>Next, let's create the Portable Class Library (PCL) in our solution. This will hold our shared code.</p>
+<ide name="xs">
+<p>Right-click on the solution node and select <strong>Add &gt; Add New Project...</strong>. This will open the New Project wizard in Visual Studio which has several screens to fill in.</p>
+<div class="carousel-header">
+There are multiple steps to the wizard, use the chevrons <i class="fa fa-chevron-left" aria-hidden="true"></i> and <i class="fa fa-chevron-right" aria-hidden="true"></i> below to walk you through each step.
+</div>
+<div id="T1392ac70fff849d8a640b491cb0df7a3" class="carousel carousel-wizard slide" data-ride="carousel" data-wrap="false" data-interval="false">
+<div class="carousel-controls">
+<a class="carousel-control-prev" href="#T1392ac70fff849d8a640b491cb0df7a3" data-slide="prev">
+<i class="fa fa-chevron-left" aria-hidden="true"></i>
+<span class="sr-only">Previous</span>
+</a><ol class="carousel-indicators">
+<li data-target="#T1392ac70fff849d8a640b491cb0df7a3" data-slide-to="0" class="active"></li>
+<li data-target="#T1392ac70fff849d8a640b491cb0df7a3" data-slide-to="1"></li>
+</ol>
+<a class="carousel-control-next" href="#T1392ac70fff849d8a640b491cb0df7a3" data-slide="next">
+<i class="fa fa-chevron-right" aria-hidden="true"></i>
+<span class="sr-only">Next</span></a>
+</div>
+<div class="carousel-inner" role="listbox">
+<div class="carousel-item active">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 1 - Select the Portable Library Template
+</h3>
+<p>
+In the New Project wizard, select <strong>Multiplatform &gt; Library &gt; Portable Library</strong> and click <strong>Next</strong> to continue.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/xs-add-pcl-1.png" alt="New Project">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Set the library name
+</h3>
+<p>
+Type in the name for your new library, use the name <strong>MyTunes.Shared</strong>. Click <strong>Create</strong> to create the library.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/xs-add-pcl-2.png" alt="Set the Library Name">
+</div>
+</div>
+</div>
+</ide>
+<ide name="vs">
+<p>Right click on the solution node and select <strong>Add &gt; New Project...</strong>. This will open the New Project dialog.</p>
+<div class="carousel-header">
+There are multiple steps to the wizard, use the chevrons <i class="fa fa-chevron-left" aria-hidden="true"></i> and <i class="fa fa-chevron-right" aria-hidden="true"></i> below to walk you through each step.
+</div>
+<div id="T54626b736b0544a68fc04f645db75ed7" class="carousel carousel-wizard slide" data-ride="carousel" data-wrap="false" data-interval="false">
+<div class="carousel-controls">
+<a class="carousel-control-prev" href="#T54626b736b0544a68fc04f645db75ed7" data-slide="prev">
+<i class="fa fa-chevron-left" aria-hidden="true"></i>
+<span class="sr-only">Previous</span>
+</a><ol class="carousel-indicators">
+<li data-target="#T54626b736b0544a68fc04f645db75ed7" data-slide-to="0" class="active"></li>
+<li data-target="#T54626b736b0544a68fc04f645db75ed7" data-slide-to="1"></li>
+</ol>
+<a class="carousel-control-next" href="#T54626b736b0544a68fc04f645db75ed7" data-slide="next">
+<i class="fa fa-chevron-right" aria-hidden="true"></i>
+<span class="sr-only">Next</span></a>
+</div>
+<div class="carousel-inner" role="listbox">
+<div class="carousel-item active">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 1 - Select the Portable Library Template
+</h3>
+<p>
+Select the <strong>Class Library &lpar;Legacy Portable)</strong> project type - it can be found under the Visual C# category. You can also use the search box at the top right of the dialog to quickly locate the template. Type in the name for your new library: use the name <strong>MyTunes.Shared</strong>. Click <strong>OK</strong> to continue.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs-add-pcl-1.png" alt="New Project dialog in Visual Studio searching for &quot;portable&quot;.">
+</div>
+<div class="carousel-item">
+<div class="carousel-caption d-block lab-block">
+<h3>
+Step 2 - Select the PCL targets
+</h3>
+<p>
+Select all the appropriate targets based on our projects. Windows 10 can be found in the second drop-down, which by default lists Windows 8 variations.
+</p>
+</div>
+<img class="d-block img-fluid" src="./images/vs-add-pcl-2.png" alt="Secondary screen for selecting platform targets when creating a new Portable Class Library.">
+</div>
+</div>
+</div>
+</ide>
+
+<hr>
+<h2>Add the code into the Portable Class Library</h2>
+<p>It's likely that the <strong>New Project</strong> wizard added an empty source file into your PCL project. You can delete this file.</p>
+<p>Next, we need to add our shared source files found in the <strong>Exercise 2 &gt; Assets</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+<p>There are two source files:</p>
+<table>
+<thead>
+<tr>
+	<th>File</th>
+	<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td><code>Song.cs</code></td>
+	<td>this defines a class which provides information about a single song.</td>
+</tr>
+<tr>
+	<td><code>SongLoader.cs</code></td>
+	<td>this is a class which can parse a JSON file off disk into a set of Song objects. It utilizes the <a href="http://www.newtonsoft.com/json" target="_blank">Newtonsoft Json.NET</a> parser.</td>
+</tr>
+</tbody>
+</table>
+<p>Add both C# files to your Portable Class Library project.</p>
+
+<hr>
+<h2>Add a NuGet reference to Json.NET</h2>
+<p>Open the NuGet references window for the Portable Class Library.</p>
+<ide name="xs">
+<ol>
+<li>Right-click on the <strong>Packages</strong> folder in the PCL project and select <strong>Add Packages...</strong>.</li>
+<li>Search for &quot;Newtonsoft.Json&quot; and select the package.</li>
+<li>Click the <strong>Add Package</strong> button to add it to your project.</li>
+</ol>
+<figure class="figure">
+<img src="images/xs-nuget-ref.png" alt="Add Packages dialog showing NuGet search results for &quot;Newtonsoft.Json&quot; with the top package selected for install." />
+</figure>
+</ide>
+<ide name="vs">
+<ol>
+<li>Right-click on the <strong>References</strong> folder in the PCL project and select <strong>Manage NuGet Packages...</strong>.</li>
+<li>Select the <strong>Browse</strong> tab in the NuGet window.</li>
+<li>Search for &quot;Newtonsoft.Json&quot;.</li>
+<li>Select the entry and click the <strong>Install</strong> button on the right-hand panel.</li>
+</ol>
+<figure class="figure">
+<img src="images/vs-nuget-ref.png" alt="NuGet Package Manager showing search results for &quot;Newtonsoft.Json&quot; with the top package selected for install." />
+</figure>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T6bebbacab95644348dbf0d60378e3ce9">Add via Package Manager Console</button>
+<div class="collapse" id="T6bebbacab95644348dbf0d60378e3ce9">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Newtonsoft.Json -ProjectName MyTunes.Shared
+</code></pre>
+
+</p>
+</div>
+</div>
+</p>
+</ide>
+
+<hr>
+<h2>Add a reference to the PCL</h2>
+<ol>
+<li>Add a reference to the PCL for each of the target projects you want to work with (iOS | Windows | Android).</li>
+<li>Build the solution. The projects should now all build properly - however they will throw an ArgumentNullException at runtime because we've not added the code to load the file.</li>
+</ol>
+
+<hr>
+<h2>Create an abstraction</h2>
+<p>The <strong>songs.json</strong> file is located in each of the platform-specific projects - just as we had it in the Shared Project version of this exercise.</p>
+<p>Since we've got the data file stored in a platform-specific way, we will need to use platform-specific code to get to our data.</p>
+<p>The code to read the json file is a separate DLL from each platform-specific project; we can't just add the code into the library. In addition, because it's a Portable Library, file I/O is prohibited - we can only work with a <code>Stream</code>. We need to create an abstraction - let's use an interface.</p>
+<h3>Create an IStreamLoader</h3>
+<ol>
+<li>Create a new interface in the Portable Class Library. Name it <code>IStreamLoader</code>.</li>
+<li>
+It should have a single method which takes a <code>string</code> filename and returns a <code>Stream</code>.
+<ul>
+<li><strong>Note:</strong> You will need to add <code>using System.IO</code> or fully qualify the <code>Stream</code> class.</li>
+</ul>
+</li>
+<li>Name the method <code>GetStreamForFilename</code>.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>namespace MyTunes
+{
+    public interface IStreamLoader
+    {
+        System.IO.Stream GetStreamForFilename(string filename);
+    }
+}
+</code></pre>
+
+
+<hr>
+<h2>Implement the abstraction</h2>
+<ul>
+<li>In each platform specific project, create a new class named <code>StreamLoader</code> that implements <code>IStreamLoader</code>. </li>
+<li>Use the platform specific instructions below for each platform to complete the <code>GetStreamForFilename</code> method.</li>
+</ul>
+<div id="accordion2" role="tablist" aria-multiselectable="true">
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T3acae9425545414f86a1221cd379f142" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T2ce3d1c0f0c74df88d1c441b03782b7b" href="#T2ce3d1c0f0c74df88d1c441b03782b7b">
+<h4>
+<a class="collapsed" href="#">
+<p>iOS</p>
+</a>
+</h4>
+</div>
+<div id="T2ce3d1c0f0c74df88d1c441b03782b7b" class="collapse" role="tabpanel" aria-labelledby="T3acae9425545414f86a1221cd379f142">
+<div class="card-block">
+<ol>
+<li>Use the <code>System.IO.File.OpenRead</code> method to open and read the file into a <code>Stream</code>.</li>
+<li>Verify that the iOS project builds.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System.IO;
+using MyTunes.Shared;
+...
+class StreamLoader : IStreamLoader
+{
+    public Stream GetStreamForFilename(string filename)
+    {
+        return File.OpenRead(filename);
+    }
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T1f3c87ca46bf4826a0ad75b976a72753" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="Ta94fcf0bc82f4ad5adc81fab403497f9" href="#Ta94fcf0bc82f4ad5adc81fab403497f9">
+<h4>
+<a class="collapsed" href="#">
+<p>Android</p>
+</a>
+</h4>
+</div>
+<div id="Ta94fcf0bc82f4ad5adc81fab403497f9" class="collapse" role="tabpanel" aria-labelledby="T1f3c87ca46bf4826a0ad75b976a72753">
+<div class="card-block">
+<ol>
+<li>Android assets are loaded through an Android <code>Context</code>, so pass in a <code>Context</code> to the constructor of your implementation and save it into a field, this will make it easy to get to assets. When we instantiate the <code>StreamLoader</code> we will pass in the <code>Activity</code> as the parameter.</li>
+<li>Use the passed context's <code>Assets.Open</code> method to open the filename.</li>
+<li>Make sure the Android project builds, check the below code if you have any trouble.</li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System.IO;
+using MyTunes.Shared;
+...
+public class StreamLoader : IStreamLoader
+{
+    private readonly Context context;
+
+    public StreamLoader(Context context)
+    {
+        this.context = context;
+    }
+    public Stream GetStreamForFilename(string filename)
+    {
+        return context.Assets.Open(filename);
+    }
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="Tf0196767990a4098bb768847a4548039" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="Tc465cc59ac8f4ad68beddf39d4b125f7" href="#Tc465cc59ac8f4ad68beddf39d4b125f7">
+<h4>
+<a class="collapsed" href="#">
+<p>Windows</p>
+</a>
+</h4>
+</div>
+<div id="Tc465cc59ac8f4ad68beddf39d4b125f7" class="collapse" role="tabpanel" aria-labelledby="Tf0196767990a4098bb768847a4548039">
+<div class="card-block">
+<ol>
+<li>Use the <code>Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync</code> method to open the file. This returns a <code>StorageFile</code>.</li>
+<li>Because it's <code>async</code>, we would normally use <code>async</code> and <code>await</code> like we did in the last exercise. However, that would change our interface contract - which we don't want to do. So, in this case, use the <code>AsTask()</code> extension method and then get the <code>Result</code> property to get the <code>StorageFile</code> - this will cause the call to be synchronous.</li>
+<li>Call <code>OpenStreamForRead().Result</code> on the <code>StorageFile</code> to retrieve a <code>Stream</code>.</li>
+<li>Make sure the Windows project builds.</li>
+</ol>
+<p>This same logic can be used for the Windows UWP project.</p>
+<pre class="prettyprint-collapse"><code>using MyTunes.Shared;
+using System;
+using System.IO;
+using MyTunes.Shared;
+using Windows.ApplicationModel;
+...
+public class StreamLoader : IStreamLoader
+{
+    public Stream GetStreamForFilename(string filename)
+    {
+        return Package.Current.InstalledLocation.GetFileAsync(filename)
+            .AsTask().Result
+            .OpenStreamForReadAsync().Result;
+    }
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+<p>The projects should all still build properly - however they will still throw an ArgumentNullException at runtime because we've not started using the <code>StreamLoader</code> implementations.</p>
+
+<hr>
+<h2>Prepare to inject the abstraction</h2>
+<p>Next, we need to provide the abstraction to the PCL. Again, we could use a variety of techniques here, and you are encouraged to try different variations if you have time. In this case, we will add a <code>static</code> property to the <code>SongLoader</code> class and set it prior to calling <code>Load</code>. We could also pass it into the <code>Load</code> method, or change the class to be non-static and then pass it into a constructor. Any of these would be valid - with the constructor form probably the most ideal since we really do need the abstraction to execute.</p>
+<ol>
+<li>Open the <strong>SongLoader.cs</strong> file and add a <code>public static</code> property named <code>Loader</code> of type <code>IStreamLoader</code>.</li>
+<li>Edit the <code>OpenData</code> method to test the property for <code>null</code> and then use it to open the passed filename.</li>
+<li>If the <code>Loader</code> implementation hasn't been set and is still <code>null</code>, then throw an exception.</li>
+</ol>
+<blockquote class="danger-quote"><strong>Note:</strong> If you did not change the namespace of your <code>IStreamLoader</code> interface when you added the new source file, then you might need to include the <code>MyTunes.Shared</code> namespace to have access that type.
+</blockquote>
+<pre class="prettyprint-collapse"><code>public static class SongLoader
+{
+    const string Filename = &quot;songs.json&quot;;
+    <mark>public static IStreamLoader Loader { get; set; }</mark>
+    ...
+
+    private static Stream OpenData()
+    {
+        <mark>if (Loader == null)</mark>
+        <mark>{</mark>
+        <mark>    throw new Exception(&quot;Must set platform Loader before calling Load.&quot;);</mark>
+        <mark>}</mark>
+
+        <mark>return Loader.GetStreamForFilename(Filename);</mark>
+    }
+}
+</code></pre>
+
+<p>Again, the projects will still build, but without setting our <code>Loader</code> implementation, we will now throw our new Exception at runtime.</p>
+
+<hr>
+<h2>Inject the abstraction</h2>
+<p>Finally, set the property in each of your platform projects to your implementation. This should be done just before call to the async <code>SongLoader.Load</code> method. The specific location is shown in each of the code blocks below.</p>
+<div id="accordion2" role="tablist" aria-multiselectable="true">
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T355c5e1643ca4953be9b7eede44e54d4" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T287dbd9350cb4ab583720bdf87ccafc7" href="#T287dbd9350cb4ab583720bdf87ccafc7">
+<h4>
+<a class="collapsed" href="#">
+<p>iOS</p>
+</a>
+</h4>
+</div>
+<div id="T287dbd9350cb4ab583720bdf87ccafc7" class="collapse" role="tabpanel" aria-labelledby="T355c5e1643ca4953be9b7eede44e54d4">
+<div class="card-block">
+<p>On iOS, we will add code to the <code>ViewDidLoad</code> override of MyTunesViewController. This is called as the main page is initialized.</p>
+<pre class="prettyprint"><code>// MyTunesViewController.cs
+public async override void ViewDidLoad()
+{
+   base.ViewDidLoad();
+
+   // Load the data
+   <mark>SongLoader.Loader = new StreamLoader();</mark>
+   var data = await SongLoader.Load();
+   ...
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T8aeb6820df74462c8e9b6cb8571ff93b" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T25c37d01188b40be8550e7a06ba67a43" href="#T25c37d01188b40be8550e7a06ba67a43">
+<h4>
+<a class="collapsed" href="#">
+<p>Android</p>
+</a>
+</h4>
+</div>
+<div id="T25c37d01188b40be8550e7a06ba67a43" class="collapse" role="tabpanel" aria-labelledby="T8aeb6820df74462c8e9b6cb8571ff93b">
+<div class="card-block">
+<p>On Android, we'll add our logic into the <code>OnCreate</code> override of MainActivity. Remember that on Android you will need to pass the running <code>Activity</code> to supply the context parameter for the constructor.</p>
+<pre class="prettyprint"><code>// MainActivity.cs
+protected async override void OnCreate(Bundle bundle)
+{
+    base.OnCreate(bundle);
+
+    <mark>SongLoader.Loader = new StreamLoader(this);</mark>
+    var data = await SongLoader.Load();
+    ...
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header collapsed" role="tab" id="T25e77e384715495599c3552e8c42e564" data-toggle="collapse" data-parent="#accordion2" aria-expanded="false" aria-controls="T17dcda4cb70e448d9e69790bccff7b84" href="#T17dcda4cb70e448d9e69790bccff7b84">
+<h4>
+<a class="collapsed" href="#">
+<p>Windows</p>
+</a>
+</h4>
+</div>
+<div id="T17dcda4cb70e448d9e69790bccff7b84" class="collapse" role="tabpanel" aria-labelledby="T25e77e384715495599c3552e8c42e564">
+<div class="card-block">
+<p>On Windows, we'll use the <code>OnNavigatedTo</code> override in the MainPage code-behind.</p>
+<pre class="prettyprint"><code>// Mainpage.xaml.cs
+protected async override void OnNavigatedTo(NavigationEventArgs e)
+{
+    base.OnNavigatedTo(e);
+
+    <mark>SongLoader.Loader = new StreamLoader();</mark>
+    this.DataContext = await SongLoader.Load();
+}
+</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+
+<hr>
+<h2>Test the applications</h2>
+<p>Run each of the platforms - they should all display the song list. Remember to select a build configuration for each platform - for example, Windows UWP requires either <code>x86</code> or <code>x64</code> and iOS requires either <code>iPhone</code> or <code>iPhoneSimulator</code>.</p>
+<div class="row">
+<div class="col-lg-4">
+<img src="./images/android-final.png" alt="Screenshot of the completed exercise app running on Android" />
+</div>
+<div class="col-lg-4">
+<img src="./images/uwp-final.png" alt="Screenshot of the completed exercise app running on UWP" />
+</div>
+<div class="col-lg-4">
+<img src="./images/ios-final.png" alt="Screenshot of the completed exercise app running on iOS" />
+</div>
+</div>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you have utilized a Portable Class Library to hold code that is shared between several application styles. You used a design pattern known as <strong>Dependency Injection</strong> to integrate platform-specific logic into the shared code in the form of file I/O. You can learn more about the DI pattern through the documentation links on the right.</p>
+<p>You can view the completed solution in the <strong>Exercise 2 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>

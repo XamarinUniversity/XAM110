@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <title>Exercise 4: Upgrade a Portable Class Library to .NET Standard</title>
+    <link rel="stylesheet" type="text/css" href="./res/styles/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./res/styles/prettify.css" />
+    <link rel="stylesheet" type="text/css" href="./res/styles/styles.css">
+</head>
+
+<body>
+    <!-- Use the same title as the StartHere -->
+    <header>XAM110 Intro to Cross-Platform</header>
+
+    <section id="main">
+        <h2>Exercise 4: Upgrade a Portable Class Library to .NET Standard</h2>
+<p>We will work on the same project we did in the previous exercise. To explore the interoperability of Portable Class Libraries and <strong>.NET Standard</strong> class libraries, we will migrate our code from the MyTunes PCL library to our library targeting .NET Standard.</p>
+<blockquote class="info-quote">To complete the exercise, you will need <a href="https://www.visualstudio.com/" target="_blank">Visual Studio for Windows or macOS</a> with the <a href="https://visualstudio.microsoft.com/xamarin/" target="_blank">Xamarin development tools</a> installed. You will also need either an emulator/simulator or a device to run the exercise on. Please see the <a href="https://docs.microsoft.com/xamarin/cross-platform/get-started/installation/" target="_blank">setup page</a> if you need help installing the Xamarin development environment.
+</blockquote>
+
+<hr>
+<h2>Open the starter solution</h2>
+<p>This exercise is a continuation of the previous exercise. You can use your existing solution or begin from the prior <strong>Exercise 3 &gt; Completed</strong> solution in your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+<hr>
+<h2>Migrate code from PCL</h2>
+<p>Next, we'll manually move our C# code files from the Portable Class Library to our .NET Standard library.</p>
+<ide name="xs">
+<ol>
+<li>In the Solution pad, within the <strong>MyTunes.Shared</strong> project, select the C# files and the JSON file: <strong>IStreamLoader.cs</strong>, <strong>Song.cs</strong>, <strong>SongLoader.cs</strong>, and <strong>songs.json</strong></li>
+<li>Right-click one of these selected files and choose <strong>Copy</strong> (or hit <kbd>Cmd</kbd>+<kbd>C</kbd>)</li>
+<li>Right-click the <strong>MyTunes.NetStandard</strong> project in the Solution pad and select <strong>Paste</strong> (<kbd>Cmd</kbd>+<kbd>V</kbd>)</li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>In the Solution Explorer, within the <strong>MyTunes.Shared</strong> project, select the C# files and the JSON file: <strong>IStreamLoader.cs</strong>, <strong>Song.cs</strong>, <strong>SongLoader.cs</strong>, and <strong>songs.json</strong></li>
+<li>Right-click one of these selected files and choose <strong>Copy</strong> (or hit <kbd>Ctrl</kbd>+<kbd>C</kbd>)</li>
+<li>Right-click the <strong>MyTunes.NetStandard</strong> project in the Solution pad and select <strong>Paste</strong> (<kbd>Ctrl</kbd>+<kbd>V</kbd>)</li>
+</ol>
+</ide>
+<blockquote>
+NOTE: The Build Action on the JSON file will also copy over, but it is good to double-check it is still set as an <strong>EmbeddedResource</strong>.
+</blockquote>
+
+<hr>
+<h2>Add NuGet packages</h2>
+<p>We've copied over the source files, but in the PCL form, they were dependent on the Json.NET NuGet package. Let's add that to our .NET Standard library.</p>
+<ide name="xs">
+<ol>
+<li>In the Solution pad, within the MyTunes.NetStandard project, right-click the <strong>Dependencies</strong> node and select <strong>Add Packages…</strong></li>
+<li>Find the <code>Newtonsoft.Json</code> NuGet package and click <strong>Add Package</strong></li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>In the Solution Explorer, within the MyTunes.NetStandard project, right-click the <strong>Dependencies</strong> node and select <strong>Manage NuGet Packages…</strong></li>
+<li>Within the Browse tab, find and select the <code>Newtonsoft.Json</code> NuGet package and click the <strong>Install</strong> button</li>
+</ol>
+<p class="spacing-top">
+<button class="spacing-both btn btn-toggle btn-purple" type="button" data-toggle="collapse" data-toggle-show-text="Add via Package Manager Console" data-toggle-hide-text="Hide" aria-expanded="false" data-target="#T47d62d77e9294751992e685615285139">Add via Package Manager Console</button>
+<div class="collapse" id="T47d62d77e9294751992e685615285139">
+<div class="card card-block">
+<p>
+<p>To add this NuGet package via the Package Manager Console, found in the menu under <strong>Tools &gt; NuGet Package Manager &gt; Package Manager Console</strong>, run the following command:</p>
+<pre class="prettyprint"><code>Install-Package Newtonsoft.Json
+</code></pre>
+
+</p>
+</div>
+</div>
+</p>
+</ide>
+
+<hr>
+<h2>Remove PCL project</h2>
+<ide name="xs">
+<ol>
+<li>In the Solution pad, within each platform head project you wish to use, right-click the <strong>References</strong> node and select <strong>Edit References…</strong></li>
+<li>Switch to the <strong>Projects</strong> tab</li>
+<li>Check the box to reference <strong>MyTunes.NetStandard</strong></li>
+<li>Uncheck the box to remove the reference to <strong>MyTunes.Shared</strong></li>
+<li>Click the <strong>OK</strong> button to save our changes</li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>In the Solution Explorer, within each platform head project you wish to use, expand the <strong>References</strong> node</li>
+<li>Right-click the <strong>References</strong> node itself, and choose <strong>Add Reference…</strong></li>
+<li>Drill down to the <strong>Projects &gt; Solution</strong> section</li>
+<li>Check the box to reference <strong>MyTunes.NetStandard</strong></li>
+<li>Uncheck the box to remove the reference to <strong>MyTunes.Shared</strong></li>
+<li>Click the <strong>OK</strong> button to save our changes</li>
+</ol>
+</ide>
+<p>With these changes in place, our platform apps should be using only our .NET Standard class library. Build and run the app on your preferred platform(s) to see it still working as before.</p>
+
+<hr>
+<h2>Managing .NET Standard version</h2>
+<p>The PCL project we were using was <strong>Profile111</strong>. Officially, that profile is directly compatible with .NET Standard version 1.1.</p>
+<p>After our experiment with <code>HttpClient</code> in the previous exercise, we left our .NET Standard library targeting version 1.1, which meant our new code would still compile just fine. Since we weren't really using <code>HttpClient</code>, we can experiment further.</p>
+<ol>
+<li>Open the <strong>SongNameExtensions.cs</strong> file</li>
+<li>Delete or comment out our lines dealing with <code>HttpClient</code></li>
+</ol>
+<pre class="prettyprint-collapse"><code>using System;
+<mark>// using System.Net.Http;</mark>
+
+namespace MyTunes.NetStandard
+{
+    public static class SongNameExtensions
+    {
+        <mark>// public static HttpClient httpClient = new HttpClient();</mark>
+        public static string RuinSongName(this string songName)
+        {
+            return songName.Replace(&quot;Crocodile&quot;, &quot;Alligator&quot;);
+        }
+    }
+}
+</code></pre>
+
+<ide name="xs">
+<ol>
+<li>Right-click the library project in the Solution pad and chose <strong>Options</strong>.</li>
+<li>In the Project properties, under <strong>Build &gt; General &gt; Target framework</strong> choose <strong>.NETStandard 1.0</strong>.</li>
+</ol>
+</ide>
+<ide name="vs">
+<ol>
+<li>Right-click the library project in the Solution Explorer and chose <strong>Properties</strong>.</li>
+<li>In the Project properties, under <strong>Application &gt; Target framework</strong> choose <strong>.NETStandard 1.0</strong>.</li>
+</ol>
+</ide>
+<ol start="3">
+<li>Click the <strong>OK</strong> button to save our changes</li>
+<li>Run the app to see it is still compiling and executing fine</li>
+</ol>
+<p>While .NET Standard version 1.1 is directly compatible with PCL Profile111, we aren't using any APIs that weren't available to .NET Standard version 1.0. We can reach more platforms by decrementing the .NET Standard version without any loss in functionality.</p>
+<blockquote>
+This may not always be the case when converting Portable Class Libraries, but changing the version and testing will confirm the potential for your library to have an expanded platform reach.
+</blockquote>
+
+<hr>
+<h2>Exercise summary</h2>
+<p>In this exercise, you converted a Portable Class Library to target .NET Standard instead. We migrated all our PCL code to a .NET Standard project and re-added NuGet packages to get a working .NET Standard portable binary. Additionally, we saw that our .NET Standard version wasn't completely tied to the PCL profile-compatible version; it can be reduced if our API usage didn't expand to calls only available in later versions.</p>
+<p>You can view the completed solution in the <strong>Exercise 4 &gt; Completed</strong> folder of your copy of the cloned or downloaded <a href="https://github.com/XamarinUniversity/XAM110/">course materials</a>.</p>
+
+
+        <div class="align-right">
+            <a href="../StartHere.html">Go Back</a>
+        </div>
+
+    </section>
+
+    <script src="./res/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.imagemapster.min.js"></script>
+    <script src="./res/js/imagemap.js"></script>
+    <script src="./res/js/prettify.js"></script>
+    <script src="./res/js/script.js"></script>
+
+    <footer>Copyright (C) 2018 Xamarin Inc., Microsoft. All rights reserved.<br><a target="_blank" href="http://university.xamarin.com">Visit Xamarin University for more classes and content</a></footer>
+
+</body>
+</html>
